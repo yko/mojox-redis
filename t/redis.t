@@ -43,7 +43,7 @@ $redis->execute(
     sub {
         is_deeply $_[1], ["test1", "test2"], "Multy-bulk result";
     }
-  )->execute(set => [test => 'привет'])->execute(
+  )->execute(set => (test => 'привет'))->execute(
     get => 'test',
     sub { is_deeply $_[1], ['привет'], "Unicode test" }
   )->execute(del => 'test')->execute(

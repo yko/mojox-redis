@@ -72,15 +72,11 @@ sub connected {
 }
 
 sub execute {
-    my ($self, $command, $args, $cb) = @_;
+    my $self = shift;
+    my $command = shift;
 
-    if (!$cb && ref $args eq 'CODE') {
-        $cb   = $args;
-        $args = [];
-    }
-    elsif (!ref $args) {
-        $args = [$args];
-    }
+    my $cb = ref $_[-1] eq 'CODE' ? pop : undef;
+    my $args = ref $_[0] eq 'ARRAY' ? shift : [@_];
 
     unshift @$args, uc $command;
 
